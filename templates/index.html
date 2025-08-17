@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>የመለኪያ ለዋጭ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .intro-section {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .intro-liul {
+            background-color: #007bff;
+        }
+        .intro-yordi {
+            background-color: #dc3545;
+        }
+        .intro-dagim {
+            background-color: #ffc107;
+            color: #333;
+        }
+        .converter-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        input[type="number"], select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="number"] {
+            flex: 1 1 100px;
+        }
+        select {
+            flex: 1 1 120px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            flex: 1 1 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result-box {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+            text-align: center;
+            color: #000;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: 1px solid #dee2e6;
+        }
+        .error-message {
+            color: red;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-section intro-liul">liul</div>
+    <div class="intro-section intro-yordi">yordi</div>
+    <div class="intro-section intro-dagim">dagim</div>
+
+    <div class="converter-container">
+        <h1>የመለኪያ ለዋጭ</h1>
+        <form method="POST">
+            <input type="number" name="value" placeholder="ዋጋ አስገባ" step="any" required
+                   value="{{ input_value if input_value is not none else '' }}">
+            <select name="input_unit">
+                <option value="celsius" {% if input_unit == 'celsius' %}selected{% endif %}>ሴልሲየስ (°C)</option>
+                <option value="fahrenheit" {% if input_unit == 'fahrenheit' %}selected{% endif %}>ፋራናይት (°F)</option>
+                <option value="km" {% if input_unit == 'km' %}selected{% endif %}>ኪሎሜትር (km)</option>
+                <option value="miles" {% if input_unit == 'miles' %}selected{% endif %}>ማይል (miles)</option>
+            </select>
+            <select name="output_unit">
+                <option value="fahrenheit" {% if output_unit == 'fahrenheit' %}selected{% endif %}>ፋራናይት (°F)</option>
+                <option value="celsius" {% if output_unit == 'celsius' %}selected{% endif %}>ሴልሲየስ (°C)</option>
+                <option value="miles" {% if output_unit == 'miles' %}selected{% endif %}>ማይል (miles)</option>
+                <option value="km" {% if output_unit == 'km' %}selected{% endif %}>ኪሎሜትር (km)</option>
+            </select>
+            <button type="submit">ቀይር</button>
+        </form>
+
+        {% if result %}
+        <div class="result-box">
+            {{ result }}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
